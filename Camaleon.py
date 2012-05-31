@@ -3,70 +3,71 @@ import sublime, sublime_plugin
 import os
 
 class CamaleonCommand(sublime_plugin.WindowCommand):
-	def run(self, type = 'next'):
+    def run(self, type = 'next'):
 
-		s = sublime.load_settings('Camaleon.sublime-settings')
-		sublime_s = sublime.load_settings('Preferences.sublime-settings')
-		current = int(s.get('current'))
+        camaleonSettings = sublime.load_settings('Camaleon.sublime-settings')
+        sublimeSettings  = sublime.load_settings('Preferences.sublime-settings')
+        current = intcamaleonSettings.get('current'))
 
-		try:
-			s.get('camaleon')[current][0]
-		except:
-			current = 0
-			try:
-				s.get('camaleon')[current][0]
-			except:
-				return # total empty
-		try:
-			if type == 'next':
-				s.get('camaleon')[current+1][0]
-				next = current+1
-			else:
-				s.get('camaleon')[current-1][0]
-				next = current-1
-				if next < 0:
-					next = len(s.get('camaleon'))-1
-		except:
-			try:
-				if type == 'next':
-					next = 0
-				else:
-					next = len(s.get('camaleon'))-1
-				s.get('camaleon')[next][0]
-			except:
-				return # total empty
+        try:
+        camaleonSettings.get('camaleon')[current][0]
+        except:
+            current = 0
+            try:
+            camaleonSettings.get('camaleon')[current][0]
+            except:
+                return # total empty
+        try:
+            if type == 'next':
+            camaleonSettings.get('camaleon')[current+1][0]
+                next = current+1
+            else:
+            camaleonSettings.get('camaleon')[current-1][0]
+                next = current-1
+                if next < 0:
+                    next = lencamaleonSettings.get('camaleon'))-1
+        except:
+            try:
+                if type == 'next':
+                    next = 0
+                else:
+                    next = lencamaleonSettings.get('camaleon'))-1
+            camaleonSettings.get('camaleon')[next][0]
+            except:
+                return # total empty
 
-		# chrome change
+        # chrome change
 
-		#check if we're already using the same colour theme
-		if s.get('camaleon')[next][0] == sublime_s.get('theme'):
-			pass
-		else:
-			sublime_s.set('theme', s.get('camaleon')[next][0]);
+        # check if we're already using the same colour theme
+        ifcamaleonSettings.get('camaleon')[next][0] == sublimeSettings.get('theme'):
+            pass
+        else:
+            sublimeSettings.set('theme',camaleonSettings.get('camaleon')[next][0]);
 
-		# colour scheme change
+        # colour scheme change
 
-		sublime_s.set('color_scheme', s.get('camaleon')[next][1]);
-		sublime.save_settings('Preferences.sublime-settings')
+        sublimeSettings.set('color_scheme',camaleonSettings.get('camaleon')[next][1]);
+        sublime.save_settings('Preferences.sublime-settings')
 
-		s.set('current', next);
-		sublime.save_settings('Camaleon.sublime-settings')
+        camaleonSettings.set('current', next);
+        sublime.save_settings('Camaleon.sublime-settings')
 
 class CamaleonRandomColourSchemeCommand(sublime_plugin.WindowCommand):
-	def run(self):
-		schemes = []
-		for dirname, dirnames, filenames in os.walk(sublime.packages_path()):
-		    for filename in filenames:
-				if filename[-7:] == 'tmTheme':
-					schemes.append(os.path.join(dirname, filename))
-		from random import choice
-		scheme = choice(schemes)
-		if scheme != '':
+    def run(self):
+        availableSchemes = []
+        for dirname, dirnames, filenames in os.walk(sublime.packages_path()):
+            for filename in filenames:
+                if filename[-7:] == 'tmTheme':
+                    availableSchemes.append(os.path.join(dirname, filename))
 
-			sublime_s = sublime.load_settings('Preferences.sublime-settings')
+        from random import choice
+        randomScheme = choice(availableSchemes)
+        if randomScheme != '':
 
-			sublime_s.set('color_scheme', scheme);
+            sublimeSettings = sublime.load_settings('Preferences.sublime-settings')
 
-			sublime.save_settings('Preferences.sublime-settings')
+            sublimeSettings.set('color_scheme', randomScheme);
 
-			sublime.status_message(u'Camaleon : Loaded colour scheme : '+scheme.decode('utf-8'))
+            sublime.save_settings('Preferences.sublime-settings')
+
+            sublime.status_message(u'Camaleon : Loaded colour scheme : '+randomScheme.decode('utf-8'))
