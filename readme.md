@@ -27,6 +27,7 @@ into your User package directory to make changes.
   already (Doesn't just check for Soda)
 * Added all available commands to the command palette, and made sure the
   keyboard shortcuts are displayed, and tweaked the copy (Colour, anyone?)
+* Improved and streamlined program logic
 
 ## Original Version
 

@@ -28,15 +28,18 @@ class CamaleonCommand(sublime_plugin.WindowCommand):
 
         # chrome change
 
-        # check if we're already using the same colour theme
+        # check if we're already using the same theme
         if camaleonSettings.get('camaleon')[current][0] == sublimeSettings.get('theme'):
             pass
         else:
             sublimeSettings.set('theme', camaleonSettings.get('camaleon')[current][0]);
 
-        # colour scheme change
+        # check if we're already using the same color_scheme
+        if camaleonSettings.get('camaleon')[current][1] == sublimeSettings.get('color_scheme'):
+            pass
+        else:
+            sublimeSettings.set('color_scheme', camaleonSettings.get('camaleon')[current][1]);
 
-        sublimeSettings.set('color_scheme', camaleonSettings.get('camaleon')[current][1]);
         sublime.save_settings('Preferences.sublime-settings')
 
         camaleonSettings.set('current', current);
