@@ -3,7 +3,7 @@ import sublime, sublime_plugin
 import os
 
 class CamaleonCommand(sublime_plugin.WindowCommand):
-    def run(self, type = 'next'):
+    def run(self, interval = 1):
 
         camaleonSettings = sublime.load_settings('Camaleon.sublime-settings')
         sublimeSettings  = sublime.load_settings('Preferences.sublime-settings')
@@ -15,18 +15,13 @@ class CamaleonCommand(sublime_plugin.WindowCommand):
         if (current > len(camaleonSettings.get('camaleon'))-1):
             current = 0
 
-        if type == 'next':
-            if (current+1 > len(camaleonSettings.get('camaleon'))-1):
-                current = 0
-            else:
-                current = current+1
+        # Interval is positive, check if int+
+        if interval > 0 and (current+interval > len(camaleonSettings.get('camaleon'))-1):
+            current = current + interval - len(camaleonSettings.get('camaleon'))
+        elif interval < 0 and ((current+interval > len(camaleonSettings.get('camaleon'))-1) or current+interval < 0):
+            current = current + interval + len(camaleonSettings.get('camaleon'))
         else:
-            if (current-1 > len(camaleonSettings.get('camaleon'))-1) or current-1 < 0:
-                current = len(camaleonSettings.get('camaleon'))-1
-            else:
-                current = current-1
-
-        # chrome change
+            current = current+interval
 
         # check if we're already using the same theme
         if camaleonSettings.get('camaleon')[current][0] == sublimeSettings.get('theme'):
@@ -40,9 +35,8 @@ class CamaleonCommand(sublime_plugin.WindowCommand):
         else:
             sublimeSettings.set('color_scheme', camaleonSettings.get('camaleon')[current][1]);
 
-        sublime.save_settings('Preferences.sublime-settings')
-
         camaleonSettings.set('current', current);
+        sublime.save_settings('Preferences.sublime-settings')
         sublime.save_settings('Camaleon.sublime-settings')
 
 class CamaleonRandomColourSchemeCommand(sublime_plugin.WindowCommand):
