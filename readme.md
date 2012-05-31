@@ -11,7 +11,7 @@ Checkout this repository into your Packages directory (More info soon)
 
 * F8:			Cycle predefined chrome+colour schemes.
 * Shift+F8:		Cycle predefined chrome+colour schemes in reverse.
-* Control+F8	Choose a random colour scheme.
+* Control+F8:	Choose a random colour scheme.
 
 Chrome+colour schemes are defined in "Camaleon.sublime-settings". Copy this file
 into your User package directory to make changes.
