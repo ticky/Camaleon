@@ -6,6 +6,7 @@ class CamaleonCommand(sublime_plugin.WindowCommand):
 	def run(self, type = 'next'):
 
 		s = sublime.load_settings('Camaleon.sublime-settings')
+		sublime_s = sublime.load_settings('Preferences.sublime-settings')
 		current = int(s.get('current'))
 
 		try:
@@ -37,16 +38,13 @@ class CamaleonCommand(sublime_plugin.WindowCommand):
 
 		# chrome change
 
-		#check for soda theme if we are going to switch to soda
-		if s.get('camaleon')[next][0].find('Soda') == 0 and False == os.path.isdir(os.path.join(sublime.packages_path(), 'Theme - Soda')):
+		#check if we're already using the same colour theme
+		if s.get('camaleon')[next][0] == sublime_s.get('theme'):
 			pass
 		else:
-			sublime_s = sublime.load_settings('Preferences.sublime-settings')
 			sublime_s.set('theme', s.get('camaleon')[next][0]);
-			sublime.save_settings('Preferences.sublime-settings')
 
 		# colour scheme change
-		sublime_s = sublime.load_settings('Preferences.sublime-settings')
 
 		sublime_s.set('color_scheme', s.get('camaleon')[next][1]);
 		sublime.save_settings('Preferences.sublime-settings')

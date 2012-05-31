@@ -1,38 +1,32 @@
-Description
-------------------
+# Camaleón
 
-Camaleón plugin allows you to quickly cycle between a combination of user defined chrome themes and colours schemes when pressing F8
+Camaleón for Sublime Text 2 allows you to quickly cycle between user-defined
+combinations of chrome themes and colour schemes.
 
-By pressing CTRL+F8 a random colour scheme will be chosen
+## Installation
 
-Installation
-------------------
+Checkout this repository into your Packages directory (More info soon)
 
-Install this package via "Package Control" see: http://wbond.net/sublime_packages/package_control
+## Usage
 
-Usage
-------------------
+* F8:			Cycle predefined chrome+colour schemes.
+* Shift+F8:		Cycle predefined chrome+colour schemes in reverse.
+* Control+F8	Choose a random colour scheme.
 
-By pressing F8 you will automatically cycle between your colour choices.
+Chrome+colour schemes are defined in "Camaleon.sublime-settings". Copy this file
+into your User package directory to make changes.
 
-Customization of combinations can be done by editing "Camaleon.sublime-settings"
+## Recent Changes
 
-To go to the previous group press SHIFT+F8
+* Improved support for Mac OS X
+* Allowed choosing a random colour scheme from anywhere in your Packages
+  directory.
+* Removed backwards-compatibility with old versions (pre-build 2174) of Sublime
+  Text 2.
+* Genericised check to prevent switching theme when we're using the same theme
+  already (Doesn't just check for Soda)
 
-This plugin recommends "Soda" theme. See: https://github.com/buymeasoda/soda-theme
+## Original Version
 
-Source / Installation
-------------------
-
+The original version of Camaleón, by Tito Bouzout, is available here:
 https://github.com/SublimeText/Camaleon
-
-Forum Thread
-------------------
-
-http://www.sublimetext.com/forum/viewtopic.php?f=5&t=4435
-
-
-License
-------------------
-
-See license.txt
