@@ -39,6 +39,13 @@ class CamaleonCommand(sublime_plugin.WindowCommand):
         sublime.save_settings('Preferences.sublime-settings')
         sublime.save_settings('Camaleon.sublime-settings')
 
+        status = u'Camaléon: Now using \'%(chrome)s\' theme and \'%(theme)s\' colour scheme.' % {
+                "chrome":   os.path.basename(camaleonSettings.get('camaleon')[current][0]).split(".")[0],
+                "theme":    os.path.basename(camaleonSettings.get('camaleon')[current][1]).split(".")[0]
+            }
+
+        sublime.status_message(status)
+
 class CamaleonRandomColourSchemeCommand(sublime_plugin.WindowCommand):
     def run(self):
         availableSchemes = []
@@ -57,4 +64,4 @@ class CamaleonRandomColourSchemeCommand(sublime_plugin.WindowCommand):
 
             sublime.save_settings('Preferences.sublime-settings')
 
-            sublime.status_message(u'Camaleon : Loaded colour scheme : '+randomScheme.decode('utf-8'))
+            sublime.status_message(u'Camaléon: Randomly chose \'%s\' colour scheme.' % os.path.basename(randomScheme).split(".")[0])
