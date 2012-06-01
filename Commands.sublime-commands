@@ -1,20 +1,34 @@
 [
     {
-        "caption": "Camaleón: Next Colour Scheme and Chrome Theme",
+        "caption": "Camaleón: Next Theme",
         "command": "camaleon",
         "args": {
         	"schemeInterval": 1
         }
     },
     {
-        "caption": "Camaleón: Previous Colour Scheme and Chrome Theme",
+        "caption": "Camaleón: Previous Theme",
         "command": "camaleon",
         "args": {
         	"schemeInterval": -1
         }
     },
     {
+        "caption": "Camaleón: Next Set",
+        "command": "camaleon",
+        "args": {
+            "setInterval": 1
+        }
+    },
+    {
+        "caption": "Camaleón: Previous Set",
+        "command": "camaleon",
+        "args": {
+            "setInterval": -1
+        }
+    },
+    {
         "caption": "Camaleón: Random Colour Scheme",
-        "command": "camaleon_random_colour_scheme"
+        "command": "camaleon_random"
     }
 ]

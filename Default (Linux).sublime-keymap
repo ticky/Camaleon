@@ -1,6 +1,9 @@
 [
-    { "keys": ["f8"],       "command": "camaleon", "args":{"schemeInterval":1}},
-    { "keys": ["shift+f8"], "command": "camaleon", "args":{"schemeInterval":-1}},
+    { "keys": ["f8"],       	"command": "camaleon", "args":{"schemeInterval":1}},
+    { "keys": ["shift+f8"], 	"command": "camaleon", "args":{"schemeInterval":-1}},
 
-    { "keys": ["ctrl+f8"],  "command": "camaleon_random_colour_scheme"}
+    { "keys": ["alt+f8"],       "command": "camaleon", "args":{"setInterval":1}},
+    { "keys": ["alt+shift+f8"], "command": "camaleon", "args":{"setInterval":-1}},
+
+    { "keys": ["ctrl+f8"],  	"command": "camaleon_random"}
 ]

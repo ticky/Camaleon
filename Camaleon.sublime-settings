@@ -1,44 +1,51 @@
 {
 	"currentScheme": 0,
+	"currentSet": 0,
 
-	"camaleon":[
+	"sets":[
+		{
+			"title":"Office - Sun",
+			"schemes":[
+				//office - sun - GROUP I
+				[
+					"Soda Light.sublime-theme",
+					"Packages/Color Scheme - Default/Solarized (Light).tmTheme"
+				],
 
-		//office - sun - GROUP I
-		[
-			"Soda Light.sublime-theme",
-			"Packages/Color Scheme - Default/Solarized (Light).tmTheme"
-		],
+				//office - sun - GROUP II
+				[
+					"Soda Light.sublime-theme",
+					"Packages/Color Scheme - Default/Twilight.tmTheme"
+				],
 
-		//office - sun - GROUP II
-		[
-			"Soda Light.sublime-theme",
-			"Packages/Color Scheme - Default/Twilight.tmTheme"
-		],
+				//office - sun - GROUP III
+				[
+					"Soda Light.sublime-theme",
+					"Packages/Color Scheme - Default/Monokai Bright.tmTheme"
+				]
+			]
+		},
+		{
+			"title":"Vampire - Moon",
+			"schemes":[
+				//vampire - moon- GROUP IV
+				[
+					"Soda Dark.sublime-theme",
+					"Packages/Color Scheme - Default/Monokai Bright.tmTheme"
+				],
 
-		//office - sun - GROUP III
-		[
-			"Soda Light.sublime-theme",
-			"Packages/Color Scheme - Default/Monokai Bright.tmTheme"
-		],
+				//vampire - moon- GROUP V
+				[
+					"Soda Dark.sublime-theme",
+					"Packages/Color Scheme - Default/Twilight.tmTheme"
+				],
 
-		//vampire - moon- GROUP IV
-		[
-			"Soda Dark.sublime-theme",
-			"Packages/Color Scheme - Default/Monokai Bright.tmTheme"
-		],
-
-		//vampire - moon- GROUP V ( any amount of groups you want )
-		[
-			"Soda Dark.sublime-theme",
-			"Packages/Color Scheme - Default/Twilight.tmTheme"
-		],
-
-		//vampire - moon- GROUP VI ( any amount of groups you want )
-		[
-			"Soda Dark.sublime-theme",
-			"Packages/Color Scheme - Default/Solarized (Light).tmTheme"
-		]
-
-
+				//vampire - moon- GROUP VI
+				[
+					"Soda Dark.sublime-theme",
+					"Packages/Color Scheme - Default/Solarized (Light).tmTheme"
+				]
+			]
+		}
 	]
 }

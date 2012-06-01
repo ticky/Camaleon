@@ -3,50 +3,76 @@ import sublime, sublime_plugin
 import os
 
 class CamaleonCommand(sublime_plugin.WindowCommand):
-    def run(self, schemeInterval = 1, ):
+    def run(self, schemeInterval = 1, setInterval = 0):
 
-        camaleonSettings = sublime.load_settings('Camaleon.sublime-settings')
-        sublimeSettings  = sublime.load_settings('Preferences.sublime-settings')
-        currentScheme = int(camaleonSettings.get('currentScheme'))
+        camaleonSettings    = sublime.load_settings('Camaleon.sublime-settings')
+        sublimeSettings     = sublime.load_settings('Preferences.sublime-settings')
+        currentScheme       = int(camaleonSettings.get('currentScheme'))
+        currentSet          = int(camaleonSettings.get('currentSet'))
 
-        if len(camaleonSettings.get('camaleon')) == 0:
+        # If we don't have any sets configured, show an error for the user
+        if len(camaleonSettings.get('sets')) == 0:
+            sublime.status_message(u'Camaléon: No sets configured! Please fix your \'Camaleon.sublime-settings.\'')
             return
 
-        if (currentScheme > len(camaleonSettings.get('camaleon'))-1):
+        # If we're already out of range (Could happen when editing sets), reset.
+        if (currentSet > len(camaleonSettings.get('sets'))-1):
+            currentSet = 0
+        if (currentScheme > len(camaleonSettings.get('sets')[currentSet].get("schemes"))):
             currentScheme = 0
 
-        # Interval is positive, check if int+
-        if schemeInterval > 0 and (currentScheme+schemeInterval > len(camaleonSettings.get('camaleon'))-1):
-            currentScheme = currentScheme + schemeInterval - len(camaleonSettings.get('camaleon'))
-        elif schemeInterval < 0 and ((currentScheme+schemeInterval > len(camaleonSettings.get('camaleon'))-1) or currentScheme+schemeInterval < 0):
-            currentScheme = currentScheme + schemeInterval + len(camaleonSettings.get('camaleon'))
-        else:
-            currentScheme = currentScheme+schemeInterval
+        # If we're changing sets, ignore the scheme interval
+        if (setInterval > 0 or setInterval < 0):
+            if setInterval > 0 and (currentSet+setInterval > len(camaleonSettings.get('sets'))-1):
+                currentSet = currentSet + setInterval - len(camaleonSettings.get('sets'))
+            elif setInterval < 0 and ((currentSet+setInterval > len(camaleonSettings.get('sets'))-1) or currentScheme+schemeInterval < 0):
+                currentSet = currentSet + setInterval + len(camaleonSettings.get('sets'))
+            else:
+                currentSet = currentSet + setInterval
 
-        # check if we're already using the same theme
-        if camaleonSettings.get('camaleon')[currentScheme][0] == sublimeSettings.get('theme'):
+            # Reset to the first scheme in new set.
+            currentScheme = 0
+
+        # Otherwise, let's change schemes!
+        elif schemeInterval > 0 and (currentScheme+schemeInterval > len(camaleonSettings.get('sets')[currentSet].get("schemes"))-1):
+            currentScheme = currentScheme + schemeInterval - len(camaleonSettings.get('sets')[currentSet].get("schemes"))
+        elif schemeInterval < 0 and ((currentScheme+schemeInterval > len(camaleonSettings.get('sets')[currentSet].get("schemes"))-1) or currentScheme+schemeInterval < 0):
+            currentScheme = currentScheme + schemeInterval + len(camaleonSettings.get('sets')[currentSet].get("schemes"))
+        else:
+            currentScheme = currentScheme + schemeInterval
+
+        # Grab the names from the set
+        newChromeTheme = camaleonSettings.get('sets')[currentSet].get("schemes")[currentScheme][0]
+        newColorScheme = camaleonSettings.get('sets')[currentSet].get("schemes")[currentScheme][1]
+
+        # Check if we're already using the same theme
+        if newChromeTheme == sublimeSettings.get('theme') or (newChromeTheme is None or len(newChromeTheme) < 1):
             pass
         else:
-            sublimeSettings.set('theme', camaleonSettings.get('camaleon')[currentScheme][0]);
+            sublimeSettings.set('theme', newChromeTheme)
 
-        # check if we're already using the same color_scheme
-        if camaleonSettings.get('camaleon')[currentScheme][1] == sublimeSettings.get('color_scheme'):
+        # Check if we're already using the same color_scheme
+        if newColorScheme == sublimeSettings.get('color_scheme') or (newColorScheme is None or len(newColorScheme) < 1):
             pass
         else:
-            sublimeSettings.set('color_scheme', camaleonSettings.get('camaleon')[currentScheme][1]);
+            sublimeSettings.set('color_scheme', newColorScheme)
 
-        camaleonSettings.set('currentScheme', currentScheme);
+        # Save Camaléon's settings
+        camaleonSettings.set('currentScheme', currentScheme)
+        camaleonSettings.set('currentSet', currentSet)
         sublime.save_settings('Preferences.sublime-settings')
         sublime.save_settings('Camaleon.sublime-settings')
 
-        status = u'Camaléon: Now using \'%(chrome)s\' theme and \'%(theme)s\' colour scheme.' % {
-                "chrome":   os.path.basename(camaleonSettings.get('camaleon')[currentScheme][0]).split(".")[0],
-                "theme":    os.path.basename(camaleonSettings.get('camaleon')[currentScheme][1]).split(".")[0]
+        # Notify the user of what's happened
+        status = u'Camaléon: Now using \'%(setName)s\' set - \'%(chrome)s\' theme and \'%(theme)s\' colour scheme.' % {
+                "setName":  camaleonSettings.get('sets')[currentSet].get("title"),
+                "chrome":   os.path.basename(newChromeTheme).split(".")[0],
+                "theme":    os.path.basename(newColorScheme).split(".")[0]
             }
 
         sublime.status_message(status)
 
-class CamaleonRandomColourSchemeCommand(sublime_plugin.WindowCommand):
+class CamaleonRandomCommand(sublime_plugin.WindowCommand):
     def run(self):
         availableSchemes = []
         for dirname, dirnames, filenames in os.walk(sublime.packages_path()):
@@ -60,7 +86,7 @@ class CamaleonRandomColourSchemeCommand(sublime_plugin.WindowCommand):
 
             sublimeSettings = sublime.load_settings('Preferences.sublime-settings')
 
-            sublimeSettings.set('color_scheme', randomScheme);
+            sublimeSettings.set('color_scheme', randomScheme)
 
             sublime.save_settings('Preferences.sublime-settings')
 
