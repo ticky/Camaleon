@@ -1,6 +1,6 @@
 [
-    { "keys": ["f8"],       "command": "camaleon", "args":{"interval":1}},
-    { "keys": ["shift+f8"], "command": "camaleon", "args":{"interval":-1}},
+    { "keys": ["f8"],       "command": "camaleon", "args":{"schemeInterval":1}},
+    { "keys": ["shift+f8"], "command": "camaleon", "args":{"schemeInterval":-1}},
 
     { "keys": ["ctrl+f8"],  "command": "camaleon_random_colour_scheme"}
 ]

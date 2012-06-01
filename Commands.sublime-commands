@@ -3,14 +3,14 @@
         "caption": "Camaleón: Next Colour Scheme and Chrome Theme",
         "command": "camaleon",
         "args": {
-        	"interval": 1
+        	"schemeInterval": 1
         }
     },
     {
         "caption": "Camaleón: Previous Colour Scheme and Chrome Theme",
         "command": "camaleon",
         "args": {
-        	"interval": -1
+        	"schemeInterval": -1
         }
     },
     {

@@ -3,7 +3,7 @@ import sublime, sublime_plugin
 import os
 
 class CamaleonCommand(sublime_plugin.WindowCommand):
-    def run(self, interval = 1):
+    def run(self, schemeInterval = 1, ):
 
         camaleonSettings = sublime.load_settings('Camaleon.sublime-settings')
         sublimeSettings  = sublime.load_settings('Preferences.sublime-settings')
@@ -16,12 +16,12 @@ class CamaleonCommand(sublime_plugin.WindowCommand):
             currentScheme = 0
 
         # Interval is positive, check if int+
-        if interval > 0 and (currentScheme+interval > len(camaleonSettings.get('camaleon'))-1):
-            currentScheme = currentScheme + interval - len(camaleonSettings.get('camaleon'))
-        elif interval < 0 and ((currentScheme+interval > len(camaleonSettings.get('camaleon'))-1) or currentScheme+interval < 0):
-            currentScheme = currentScheme + interval + len(camaleonSettings.get('camaleon'))
+        if schemeInterval > 0 and (currentScheme+schemeInterval > len(camaleonSettings.get('camaleon'))-1):
+            currentScheme = currentScheme + schemeInterval - len(camaleonSettings.get('camaleon'))
+        elif schemeInterval < 0 and ((currentScheme+schemeInterval > len(camaleonSettings.get('camaleon'))-1) or currentScheme+schemeInterval < 0):
+            currentScheme = currentScheme + schemeInterval + len(camaleonSettings.get('camaleon'))
         else:
-            currentScheme = currentScheme+interval
+            currentScheme = currentScheme+schemeInterval
 
         # check if we're already using the same theme
         if camaleonSettings.get('camaleon')[currentScheme][0] == sublimeSettings.get('theme'):
